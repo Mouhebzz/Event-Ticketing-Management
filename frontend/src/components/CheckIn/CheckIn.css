@@ -1,0 +1,153 @@
+.checkin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.qr-reader-container {
+  width: 400%;
+  max-width: 400px;
+  display:flex;
+}
+
+.event-statistics-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #2ecc71;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.event-statistics-button:hover {
+  background-color: #27ae60;
+}
+
+
+.response-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.response-popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.response-popup p {
+  margin-bottom: 10px;
+}
+
+.response-popup button {
+  background-color: #27ae60;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.response-popup button:hover {
+  background-color: #218c4b;
+}
+
+
+
+.event-activities {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.activities-title {
+  font-size: 24px;
+  margin-bottom: 30px;
+  text-align: center;
+  width:100%;
+}
+
+.activity-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+
+.activity-card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  width: calc(33.33% - 20px);
+  max-width: 300px;
+  flex-grow: 1;
+  text-decoration: none;
+  color:black;
+}
+
+.activity-card:hover {
+  transform: translateY(-4px);
+}
+
+.activity-card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.activity-card p {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.add-activity-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+  width: calc(33.33% - 20px);
+  max-width: 300px;
+  flex-grow: 1;
+}
+
+.add-activity-card:hover {
+  background-color: #e0e0e0;
+}
+
+.add-activity-card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.plus-icon {
+  font-size: 48px;
+  color: #27ae60;
+}

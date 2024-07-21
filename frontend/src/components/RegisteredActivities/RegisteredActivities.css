@@ -1,0 +1,48 @@
+/* RegisteredActivitiesPage.css */
+
+.registered-activity-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    margin-left:10px;
+  }
+  
+  .registered-activity-card {
+    flex: 0 0 280px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .registered-activity-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .registered-activity-card p {
+    margin-bottom: 5px;
+  }
+  
+  .unregister-button {
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .unregister-button:hover {
+    background-color: #27ae60;
+  }
+  
+  .unregister-button:active {
+    background-color: #27ae60;
+  }
+  

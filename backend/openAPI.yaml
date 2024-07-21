@@ -1,0 +1,714 @@
+openapi: 3.0.0
+info:
+  title: Event & Ticket Management API
+  description: "The main objective of this project is to develop a robust and scalable backend system that powers our event management and ticketing web application. The application aims to provide event organizers with a platform to create, manage, and promote events, while allowing attendees to easily purchase tickets and enroll in specific event activities such as workshops and conferences. The backend system plays a crucial role in delivering a seamless and efficient experience for both event organizers and attendees."
+  version: 1.0.0-oas3-oas3.1
+servers:
+  - url: https://eventhub-backend.herokuapp.com
+paths:
+  /user/signup:
+    post:
+      summary: Create a new user
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+  /user/validate-email:
+    post:
+      summary: Send email verification token
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              required:
+                - email
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+  /user/login:
+    post:
+      summary: Verify user credentials and get a token
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                  _id:
+                    type: string
+                  name:
+                    type: string
+                  surname:
+                    type: string
+        '400':
+          description: Bad Request
+  /user/verify/{id}:
+    get:
+      summary: Verify user account with the provided token
+      tags:
+        - User
+      parameters:
+        - name: id
+          in: path
+          description: Verification token
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /user/current-user:
+    get:
+      summary: Get information about the current user
+      tags:
+        - User
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                  _id:
+                    type: string
+                  name:
+                    type: string
+                  surname:
+                    type: string
+        '400':
+          description: Bad Request
+  /user/reset-password:
+    post:
+      summary: Send a reset password email
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              required:
+                - email
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+  /user/new-password:
+    post:
+      summary: Set a new password for the user
+      tags: 
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                password:
+                  type: string
+              required:
+                - id
+                - password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+  /todos/create-event:
+    post:
+      summary: Create a new event
+      tags:
+        - Todos
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                short_description:
+                  type: string
+                location:
+                  type: string
+                start_date:
+                  type: string
+                  format: date-time
+                end_date:
+                  type: string
+                  format: date-time
+                price:
+                  type: number
+                category:
+                  type: string
+                bannerURL:
+                  type: string
+              required:
+                - name
+                - description
+                - start_date
+                - end_date
+                - price
+                - category
+      responses:
+        '200':
+          description: Event created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+  /todos/created-events:
+    post:
+      summary: Get created events for a user
+      tags:
+        - Todos
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              required:
+                - email
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+  /todos/buy:
+    post:
+      summary: Buy event tickets
+      tags:
+        - Tickets
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventId:
+                  type: string
+                userId:
+                  type: string
+              required:
+                - eventId
+                - userId
+      responses:
+        '200':
+          description: Payment successful
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /todos/mytickets:
+    post:
+      summary: Get user tickets
+      tags:
+        - Tickets
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              required:
+                - email
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+  /events:
+    get:
+      summary: Get all events
+      tags:
+        - Events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+  /events/{eventId}:
+    get:
+      summary: Get an event by ID
+      tags:
+        - Events
+      parameters:
+        - name: eventId
+          in: path
+          description: ID of the event to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+  /events/{eventId}/create-activity:
+    post:
+      summary: Create an activity for an event
+      tags:
+        - Events
+      parameters:
+        - name: eventId
+          in: path
+          description: ID of the event to add the activity to
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                time:
+                  type: string
+                  format: date-time
+                location:
+                  type: string
+              required:
+                - name
+                - description
+                - time
+                - location
+      responses:
+        '201':
+          description: Activity created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activity:
+                    $ref: '#/components/schemas/EventActivity'
+                  event:
+                    $ref: '#/components/schemas/Event'
+  /events/{eventId}/activities:
+    post:
+      summary: Get activities for an event
+      tags:
+        - Events
+      parameters:
+        - name: eventId
+          in: path
+          description: ID of the event to retrieve activities for
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activities:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EventActivity'
+  /eventactivity/register/{eventId}/{activityId}:
+    post:
+      summary: Register user for an event activity
+      tags:
+        - Event Activities
+      parameters:
+        - name: eventId
+          in: path
+          description: ID of the event
+          required: true
+          schema:
+            type: string
+        - name: activityId
+          in: path
+          description: ID of the activity
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+              required:
+                - userId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /eventactivity/unregister/{eventId}/{activityId}:
+    post:
+      summary: Unregister user from an event activity
+      tags:
+        - Event Activities
+      parameters:
+        - name: eventId
+          in: path
+          description: ID of the event
+          required: true
+          schema:
+            type: string
+        - name: activityId
+          in: path
+          description: ID of the activity
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /eventactivity/checkin/{eventId}/{activityId}:
+    post:
+      summary: Check-in user for an event activity
+      tags:
+        - Event Activities
+      parameters:
+        - name: eventId
+          in: path
+          description: ID of the event
+          required: true
+          schema:
+            type: string
+        - name: activityId
+          in: path
+          description: ID of the activity
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                participantId:
+                  type: string
+              required:
+                - participantId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /eventactivity/{eventId}/registered-activities:
+    post:
+      summary: Get activities for an event
+      tags:
+        - Event Activities
+      parameters:
+        - name: eventId
+          in: path
+          description: ID of the event
+          required: true
+          schema:
+            type: string
+        - name: userId
+          in: query
+          description: ID of the user
+          required: true
+          schema: 
+            type: string
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activities:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EventActivity'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        verified:
+          type: boolean
+          default: false
+        resetToken:
+          type: string
+        expireToken:
+          type: string
+          format: date-time
+        my_events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        created_events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        attendedActivities:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventActivity'
+        checkedInActivities:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventActivity'
+        created_at:
+          type: string
+          format: date-time
+
+    Event:
+      type: object
+      properties:
+        name:
+          type: string
+        short_description:
+          type: string
+        description:
+          type: string
+        creator:
+          type: string
+          format: uuid
+        bannerURL:
+          type: string
+        location:
+          type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        category:
+          type: string
+        price:
+          type: number
+          format: double
+        program:
+          type: object
+        attendees:
+          type: array
+          items:
+            type: string
+            format: uuid
+        checked_in_attendees:
+          type: array
+          items:
+            type: string
+            format: uuid
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventActivity'
+        created_at:
+          type: string
+          format: date-time
+
+    EventActivity:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        time:
+          type: string
+          format: date-time
+        location:
+          type: string
+        event:
+          type: string
+          format: uuid
+        creator:
+          type: string
+          format: uuid
+        attendees:
+          type: array
+          items:
+            type: string
+            format: uuid
+        checkedInAttendees:
+          type: array
+          items:
+            type: string
+            format: uuid
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []

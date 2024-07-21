@@ -1,0 +1,108 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.signup-form-container {
+  width: 400px;
+  margin-bottom: 20px;
+}
+
+.signup-form {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form h1 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.credentials {
+  margin-bottom: 20px;
+  display:grid;
+}
+
+.fullname {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.fullname input {
+  margin-right: 5px; /* Add right margin for spacing */
+  margin-left:5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease-in-out;
+  justify-self: center;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #007bff;
+}
+
+.submission {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  background-color: #2ecc71;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.btn:hover {
+  background-color: #27ae60;
+}
+
+.other-options {
+  text-align: center;
+}
+
+.other-options a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.other-options a:hover {
+  color: #0056b3;
+}
+
+.submission-results {
+  margin-top: 20px;
+  text-align: center;
+  color:grey;
+}

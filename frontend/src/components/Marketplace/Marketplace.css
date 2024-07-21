@@ -1,0 +1,146 @@
+.events-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    margin: 1rem;
+  }
+
+  .events-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  @media (max-width: 768px) {
+    .events-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .events-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+
+  .search-container {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    width: 300px;
+    max-width: 100%;
+  }
+  
+  input.search-input {
+    padding: 8px 16px;
+    width: 300px;
+    border: 1px solid;
+    border-radius: 500px;
+    font-size: 16px;
+    transition: #f0f0f0 0.3s ease;
+    background-color: #f0f0f0; 
+    padding-right: 30px;
+  }
+  
+  input.search-input:focus {
+    outline: #27ae60;
+    background-color: #ffffff;
+    border-color: #27ae60;
+  }
+
+  .search-bar {
+    position: relative;
+  }
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    fill: #888; /* Customize the color of the icon */
+  }  
+  
+  /* .event-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  } */
+  
+
+  
+
+  
+
+  /* .event-card {
+    border: none;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    background-color: #fff;
+    margin-bottom: 20px;
+  } */
+  
+  .event-card:hover {
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+  }
+  
+  .event-card .card-body {
+    padding: 15px;
+    text-decoration: none;
+  }
+  
+  .event-card .card-body.text-center {
+    text-align: center;
+  }
+  
+  .event-card .card-body a {
+    text-decoration: none;
+  }
+  
+  .event-card .card-body a:hover {
+    text-decoration: none;
+  }
+
+  .event-card {
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    margin: 0 16px 16px 0;
+    overflow: hidden;
+    width: 300px;
+  }
+  
+  .event-banner img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .event-info {
+    padding: 16px;
+  }
+  
+  .event-name {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  
+  .event-description {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  
+  .event-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .event-meta span {
+    display: inline-block;
+    margin-right: 8px;
+  }
+  

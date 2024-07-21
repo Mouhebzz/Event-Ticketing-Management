@@ -1,0 +1,15 @@
+.navbar__btn {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin-right: 10px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .navbar__btn:hover {
+    background-color: #fff;
+    color: #333;
+  }
